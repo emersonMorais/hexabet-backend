@@ -1,6 +1,7 @@
 package br.com.hexabet.api.services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -19,9 +20,16 @@ public class TeamService {
 
   @Transactional
   public List<TeamDTO> findAllTeams() {
-
     List<Team> listOfTeams = teamRepository.findAll();
 
     return listOfTeams.stream().map(team -> new TeamDTO(team)).collect(Collectors.toList());
   }
+
+  @Transactional
+  public TeamDTO findTeamById(Long id) {
+    Optional<Team> teamOptional = teamRepository.findById(id);
+    Team team = teamOptional.get();
+    return new TeamDTO(team);
+  }
+
 }
