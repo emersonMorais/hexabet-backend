@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.hexabet.api.entities.Team;
+import br.com.hexabet.api.dto.TeamDTO;
 import br.com.hexabet.api.services.TeamService;
 
 @RestController
@@ -19,8 +19,8 @@ public class TeamResource {
   private TeamService teamService;
   
   @GetMapping
-  public ResponseEntity<List<Team>> findAll() {
-    List<Team> list =  teamService.findAllTeams();
+  public ResponseEntity<List<TeamDTO>> findAll() {
+    List<TeamDTO> list =  teamService.findAllTeams();
     return ResponseEntity.ok().body(list);
   }
 

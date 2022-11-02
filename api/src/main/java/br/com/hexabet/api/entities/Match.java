@@ -33,20 +33,14 @@ public class Match {
   @JoinColumn(name = "team1_id")
   private Team firstTeam;
 
-  
   @ManyToOne
   @JoinColumn(name = "team2_id")
   private Team secondTeam;
 
   @ManyToMany
-  @JoinTable(
-    name = "match_bets",
-    joinColumns = @JoinColumn(name="match_id"),
-    inverseJoinColumns = @JoinColumn(name="bet_id")
-  )
+  @JoinTable(name = "match_bets", joinColumns = @JoinColumn(name = "match_id"), inverseJoinColumns = @JoinColumn(name = "bet_id"))
   private Set<Bet> bets = new HashSet<>();
 
- 
   public Match() {
   }
 
@@ -61,7 +55,7 @@ public class Match {
 
   public void setId(Long id) {
     this.id = id;
-    
+
   }
 
   public Team getFirstTeam() {
@@ -76,7 +70,6 @@ public class Match {
     return secondTeam;
   }
 
-
   public void setSecondTeam(Team secondTeam) {
     this.secondTeam = secondTeam;
   }
@@ -88,7 +81,6 @@ public class Match {
   public void setDate(Date date) {
     this.date = date;
   }
-
 
   public String getResult() {
     return result;
