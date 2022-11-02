@@ -1,15 +1,22 @@
 package br.com.hexabet.api.entities;
 
-import java.time.OffsetDateTime;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "tb_users")
 public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,13 +26,21 @@ public class User {
   private String email;
   private String password; 
   private String role;
-  private OffsetDateTime createdAt;
-  private OffsetDateTime updatedAt;
+  private Date createdAt;
+  private Date updatedAt;
+
+  @ManyToMany
+  @JoinTable(
+    name = "user_bet",
+    joinColumns = @JoinColumn(name="user_id"),
+    inverseJoinColumns = @JoinColumn(name="bet_id")
+  )
+  private Set<Bet> bets = new HashSet<>();
   
   private User() {}
 
-  public User(Long id, String name, String email, String password, String role, OffsetDateTime createdAt,
-      OffsetDateTime updatedAt) {
+  public User(Long id, String name, String email, String password, String role, Date createdAt,
+      Date updatedAt) {
     this.id = id;
     this.name = name;
     this.email = email;
@@ -55,11 +70,11 @@ public class User {
     return role;
   }
 
-  public OffsetDateTime getCreatedAt() {
+  public Date getCreatedAt() {
     return createdAt;
   }
 
-  public OffsetDateTime getUpdatedAt() {
+  public Date getUpdatedAt() {
     return updatedAt;
   }
 
@@ -75,11 +90,11 @@ public class User {
     this.role = role;
   }
 
-  public void setCreatedAt(OffsetDateTime createdAt) {
+  public void setCreatedAt(Date createdAt) {
     this.createdAt = createdAt;
   }
 
-  public void setUpdatedAt(OffsetDateTime updatedAt) {
+  public void setUpdatedAt(Date updatedAt) {
     this.updatedAt = updatedAt;
   }
 
@@ -104,7 +119,4 @@ public class User {
         + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
   }
 
-  
-  
-  
 }

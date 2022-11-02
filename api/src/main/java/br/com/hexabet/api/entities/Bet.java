@@ -1,21 +1,64 @@
 package br.com.hexabet.api.entities;
 
-import java.time.OffsetDateTime;
+import java.util.Date;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "tb_bets")
 public class Bet {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String guess;
-  private OffsetDateTime createdAt;
-  private OffsetDateTime updatedAt;
+  private Date createdAt;
+  private Date updatedAt;
 
   public Bet() {
   }
 
-  public Bet(Long id, String guess, OffsetDateTime createdAt, OffsetDateTime updatedAt) {
+  public Bet(Long id, String guess, Date createdAt, Date updatedAt) {
     this.id = id;
     this.guess = guess;
     this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+  }
+
+  
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public String getGuess() {
+    return guess;
+  }
+
+  public void setGuess(String guess) {
+    this.guess = guess;
+  }
+
+  public Date getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(Date createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public Date getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(Date updatedAt) {
     this.updatedAt = updatedAt;
   }
 
