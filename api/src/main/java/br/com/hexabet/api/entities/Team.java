@@ -16,15 +16,18 @@ public class Team {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private String name;
+  private String countryName;
   private char groupTeam;
+
 
   @OneToMany(mappedBy = "id")
   private Set<Match> matches = new HashSet<>();
 
-  public Team(Long id, String name, char groupTeam) {
+  public Team() {}
+
+  public Team(Long id, String countryName, char groupTeam) {
     this.id = id;
-    this.name = name;
+    this.countryName = countryName;
     this.groupTeam = groupTeam;
   }
 
@@ -36,12 +39,12 @@ public class Team {
     this.id = id;
   }
 
-  public String getName() {
-    return name;
+  public String getcountryName() {
+    return countryName;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setcountryName(String countryName) {
+    this.countryName = countryName;
   }
 
   public char getGroupTeam() {
@@ -76,5 +79,13 @@ public class Team {
       return false;
     return true;
   }
+
+  @Override
+  public String toString() {
+    return "Team [id=" + id + ", countryName=" + countryName + ", groupTeam=" + groupTeam + ", matches=" + matches
+        + "]";
+  }
+
+  
 
 }

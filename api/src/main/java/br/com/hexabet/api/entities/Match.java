@@ -25,12 +25,14 @@ public class Match {
 
   @ManyToOne
   @JoinColumn(name = "team1_id")
-  private Team home;
+  private Team firstTeam;
 
+  
   @ManyToOne
   @JoinColumn(name = "team2_id")
-  private Team away;
+  private Team secondTeam;
 
+ 
   public Match() {
   }
 
@@ -45,6 +47,37 @@ public class Match {
 
   public void setId(Long id) {
     this.id = id;
+    
+  }
+
+  public Team getFirstTeam() {
+    return firstTeam;
+  }
+
+  public void setFirstTeam(Team firstTeam) {
+    this.firstTeam = firstTeam;
+  }
+
+  public Team getSecondTeam() {
+    return secondTeam;
+  }
+
+
+  public void setSecondTeam(Team secondTeam) {
+    this.secondTeam = secondTeam;
+  }
+
+  public Date getDate() {
+    return date;
+  }
+
+  public void setDate(Date date) {
+    this.date = date;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
   }
 
   @Override
@@ -57,12 +90,9 @@ public class Match {
     return Objects.equals(id, other.id);
   }
 
-  public Date getDate() {
-    return date;
-  }
-
-  public void setDate(Date date) {
-    this.date = date;
+  @Override
+  public String toString() {
+    return "Match [id=" + id + ", date=" + date + ", firstTeam=" + firstTeam + ", secondTeam=" + secondTeam + "]";
   }
 
 }
