@@ -42,12 +42,12 @@ public class Match {
   public Match() {
   }
 
-  public Match(Long id, Instant date, String result, Team firstTeamCountryName, Team secondTeamCountryName) {
+  public Match(Long id, Instant date, String result, Team firstTeam, Team secondTeam) {
     this.id = id;
     this.date = date;
     this.result = result;
-    this.firstTeam = firstTeamCountryName;
-    this.secondTeam = secondTeamCountryName;
+    this.firstTeam = firstTeam;
+    this.secondTeam = secondTeam;
   }
 
   public Long getId() {
@@ -116,7 +116,9 @@ public class Match {
 
   @Override
   public String toString() {
-    return "Match [id=" + id + ", date=" + date + ", firstTeam=" + firstTeam + ", secondTeam=" + secondTeam + "]";
+    return "Match [id=" + id + ", date=" + date + ", firstTeam=" + firstTeam + ", secondTeam="
+        + secondTeam
+        + "]";
   }
 
 }

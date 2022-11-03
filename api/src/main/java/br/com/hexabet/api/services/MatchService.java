@@ -34,11 +34,8 @@ public class MatchService {
   @Transactional
   public MatchDTO insertNewMatch(MatchDTO matchDTO) {
     Match match = new Match();
-
     match.setDate(matchDTO.getDate());
-  
     match = matchRepository.save(match);
-    
     return new MatchDTO(match);
   }
 

@@ -10,26 +10,27 @@ public class MatchDTO {
   private Instant date;
   private String result;
 
-  private Team firstTeamCountryName;
-  private Team secondTeamCountryName;
+  private Team firstTeam;
+  private Team secondTeam;
 
   public MatchDTO() {
   }
 
-  public MatchDTO(Long id, Instant date, String result, Team firstTeamCountryName, Team secondTeamCountryName) {
+ 
+  public MatchDTO(Long id, Instant date, String result, Team firstTeam, Team secondTeam) {
     this.id = id;
     this.date = date;
     this.result = result;
-    this.firstTeamCountryName = firstTeamCountryName;
-    this.secondTeamCountryName = secondTeamCountryName;
+    this.firstTeam = firstTeam;
+    this.secondTeam = secondTeam;
   }
 
   public MatchDTO(Match entityMatch) {
     this.id = entityMatch.getId();
     this.date = entityMatch.getDate();
     this.result = entityMatch.getResult();
-    this.firstTeamCountryName = entityMatch.getFirstTeam();
-    this.secondTeamCountryName = entityMatch.getSecondTeam();
+    this.firstTeam = entityMatch.getFirstTeam();
+    this.secondTeam = entityMatch.getSecondTeam();
   }
 
   public Instant getDate() {
@@ -56,36 +57,20 @@ public class MatchDTO {
     this.id = id;
   }
 
-  public Team getFirsTeam() {
-    return firstTeamCountryName;
+  public Team getFirstTeam() {
+    return firstTeam;
   }
 
-  public void setFirsTeam(Team firsTeam) {
-    this.firstTeamCountryName = firsTeam;
+  public void setFirstTeam(Team firstTeam) {
+    this.firstTeam = firstTeam;
   }
 
   public Team getSecondTeam() {
-    return secondTeamCountryName;
+    return secondTeam;
   }
 
   public void setSecondTeam(Team secondTeam) {
-    this.secondTeamCountryName = secondTeam;
-  }
-
-  public Team getFirstTeamCountryName() {
-    return firstTeamCountryName;
-  }
-
-  public void setFirstTeamCountryName(Team firstTeamCountryName) {
-    this.firstTeamCountryName = firstTeamCountryName;
-  }
-
-  public Team getSecondTeamCountryName() {
-    return secondTeamCountryName;
-  }
-
-  public void setSecondTeamCountryName(Team secondTeamCountryName) {
-    this.secondTeamCountryName = secondTeamCountryName;
+    this.secondTeam = secondTeam;
   }
 
 }

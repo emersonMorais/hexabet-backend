@@ -34,10 +34,13 @@ public class MatchResource {
       @RequestParam(value = "orderBy", defaultValue = "date") String orderBy,
       @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
 
-    PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+    PageRequest pageRequest = PageRequest.of(
+      page, linesPerPage, 
+      Direction.valueOf(direction), 
+      orderBy
+    );
 
     Page<MatchDTO> listOfMatchsPaged = matchService.findAllMatchsPaged(pageRequest);
-
     return ResponseEntity.ok().body(listOfMatchsPaged);
   }
 
