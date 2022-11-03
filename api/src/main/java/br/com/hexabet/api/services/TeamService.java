@@ -1,12 +1,12 @@
 package br.com.hexabet.api.services;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import br.com.hexabet.api.dto.TeamDTO;
@@ -19,11 +19,11 @@ public class TeamService {
   private TeamRepository teamRepository;
 
   @Transactional
-  public List<TeamDTO> findAllTeams() {
-    List<Team> listOfTeams = teamRepository.findAll();
-
-    return listOfTeams.stream().map(team -> new TeamDTO(team)).collect(Collectors.toList());
+  public Page<TeamDTO> findAllTeamsPaged(PageRequest pageRequest) {
+    Page<Team> listOfTeams = teamRepository.findAll(pageRequest);
+    return listOfTeams.map(team -> new TeamDTO(team));
   }
+
 
   @Transactional
   public TeamDTO findTeamById(Long id) {
