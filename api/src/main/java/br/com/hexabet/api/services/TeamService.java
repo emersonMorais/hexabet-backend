@@ -32,4 +32,15 @@ public class TeamService {
     return new TeamDTO(team);
   }
 
+  @Transactional
+  public TeamDTO insertNewTeam(TeamDTO teamDTO) {
+    Team team = new Team();
+    
+    team.setcountryName(teamDTO.getCountryName());
+    team.setGroupTeam(teamDTO.getGroupTeam());
+    team = teamRepository.save(team);
+    
+    return new TeamDTO(team);
+  }
+
 }
