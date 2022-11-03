@@ -1,6 +1,6 @@
 package br.com.hexabet.api.entities;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -19,15 +19,13 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tb_matches")
 public class Match {
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "match_id")
   private Long id;
-
-  private Date date;
-
   private String result;
+  @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+  private Instant date;
 
   @ManyToOne
   @JoinColumn(name = "team1_id")
@@ -44,9 +42,12 @@ public class Match {
   public Match() {
   }
 
-  public Match(Long id, Date date) {
+  public Match(Long id, Instant date, String result, Team firstTeamCountryName, Team secondTeamCountryName) {
     this.id = id;
     this.date = date;
+    this.result = result;
+    this.firstTeam = firstTeamCountryName;
+    this.secondTeam = secondTeamCountryName;
   }
 
   public Long getId() {
@@ -74,11 +75,11 @@ public class Match {
     this.secondTeam = secondTeam;
   }
 
-  public Date getDate() {
+  public Instant getDate() {
     return date;
   }
 
-  public void setDate(Date date) {
+  public void setDate(Instant date) {
     this.date = date;
   }
 
