@@ -15,6 +15,7 @@ import br.com.hexabet.api.repositories.MatchRepository;
 
 @Service
 public class MatchService {
+  
   @Autowired
   private MatchRepository matchRepository;
 
@@ -34,8 +35,13 @@ public class MatchService {
   @Transactional
   public MatchDTO insertNewMatch(MatchDTO matchDTO) {
     Match match = new Match();
+
     match.setDate(matchDTO.getDate());
+    match.setResult(matchDTO.getResult());
+    match.setFirstTeam(matchDTO.getFirstTeam());
+    match.setSecondTeam(matchDTO.getSecondTeam());
     match = matchRepository.save(match);
+    
     return new MatchDTO(match);
   }
 

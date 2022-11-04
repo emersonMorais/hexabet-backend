@@ -24,7 +24,6 @@ public class TeamService {
     return listOfTeams.map(team -> new TeamDTO(team));
   }
 
-
   @Transactional
   public TeamDTO findTeamById(Long id) {
     Optional<Team> teamOptional = teamRepository.findById(id);
@@ -35,11 +34,11 @@ public class TeamService {
   @Transactional
   public TeamDTO insertNewTeam(TeamDTO teamDTO) {
     Team team = new Team();
-    
+
     team.setcountryName(teamDTO.getCountryName());
     team.setGroupTeam(teamDTO.getGroupTeam());
     team = teamRepository.save(team);
-    
+
     return new TeamDTO(team);
   }
 
