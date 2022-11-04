@@ -54,12 +54,12 @@ public class MatchResource {
   public ResponseEntity<MatchDTO> insert(@RequestBody MatchDTO matchDTO) {
     matchDTO = matchService.insertNewMatch(matchDTO);
 
-    URI uri = ServletUriComponentsBuilder
+    URI location = ServletUriComponentsBuilder
         .fromCurrentRequest()
         .path("/{id}")
         .buildAndExpand(matchDTO.getId()).toUri();
 
-    return ResponseEntity.created(uri).body(matchDTO);
+    return ResponseEntity.created(location).body(matchDTO);
   }
 
 }
