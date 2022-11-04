@@ -2,6 +2,7 @@ package br.com.hexabet.api.services;
 
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import br.com.hexabet.api.repositories.MatchRepository;
 
 @Service
 public class MatchService {
-  
+
   @Autowired
   private MatchRepository matchRepository;
 
@@ -41,8 +42,20 @@ public class MatchService {
     match.setFirstTeam(matchDTO.getFirstTeam());
     match.setSecondTeam(matchDTO.getSecondTeam());
     match = matchRepository.save(match);
-    
+
     return new MatchDTO(match);
+  }
+
+  @Transactional
+  public MatchDTO updateMatch(Long id, MatchDTO matchDTO) {
+      try {
+        Match match = matchRepository.getReferenceById(id);
+        match.setResult(matchDTO.getResult());
+        match = matchRepository.save(match);
+        return new MatchDTO(match);
+      } catch (EntityNotFoundException e) {
+        throw new RuntimeException(e.getMessage());
+    }
   }
 
 }
