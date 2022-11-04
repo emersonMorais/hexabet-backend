@@ -17,7 +17,7 @@ public class Team {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String countryName;
-  private char groupTeam;
+  private String groupTeam;
 
 
   @OneToMany(mappedBy = "id")
@@ -25,7 +25,7 @@ public class Team {
 
   public Team() {}
 
-  public Team(Long id, String countryName, char groupTeam) {
+  public Team(Long id, String countryName, String groupTeam) {
     this.id = id;
     this.countryName = countryName;
     this.groupTeam = groupTeam;
@@ -47,11 +47,11 @@ public class Team {
     this.countryName = countryName;
   }
 
-  public char getGroupTeam() {
+  public String getGroupTeam() {
     return groupTeam;
   }
 
-  public void setGroupTeam(char groupTeam) {
+  public void setGroupTeam(String groupTeam) {
     this.groupTeam = groupTeam;
   }
 

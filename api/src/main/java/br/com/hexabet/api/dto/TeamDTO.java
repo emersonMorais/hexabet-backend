@@ -6,7 +6,7 @@ public class TeamDTO {
 
   private Long id;
   private String countryName;
-  private char groupTeam;
+  private String groupTeam;
 
   public TeamDTO() {
   }
@@ -17,7 +17,7 @@ public class TeamDTO {
     this.groupTeam = entityTeam.getGroupTeam();
   }
 
-  public TeamDTO(Long id, String countryName, char groupTeam) {
+  public TeamDTO(Long id, String countryName, String groupTeam) {
     this.id = id;
     this.countryName = countryName;
     this.groupTeam = groupTeam;
@@ -39,11 +39,11 @@ public class TeamDTO {
     this.countryName = countryName;
   }
 
-  public char getGroupTeam() {
+  public String getGroupTeam() {
     return groupTeam;
   }
 
-  public void setGroupTeam(char groupTeam) {
+  public void setGroupTeam(String groupTeam) {
     this.groupTeam = groupTeam;
   }
 
