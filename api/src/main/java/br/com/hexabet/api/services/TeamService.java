@@ -2,9 +2,11 @@ package br.com.hexabet.api.services;
 
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -42,4 +44,25 @@ public class TeamService {
     return new TeamDTO(team);
   }
 
+  @Transactional
+  public TeamDTO updateTeam(Long id, TeamDTO teamDTO) {
+    try {
+      Team team = teamRepository.getReferenceById(id);
+      team.setcountryName(teamDTO.getCountryName());
+      team = teamRepository.save(team);
+      return new TeamDTO(team);
+    } catch (EntityNotFoundException e) {
+      throw new RuntimeException(e.getMessage());
+    }
+
+  }
+
+  public void deleteTeam(Long id) {
+    try{
+      teamRepository.deleteById(id);;
+    } 
+    catch(EmptyResultDataAccessException err){
+      err.printStackTrace();
+    }
+  }
 }
