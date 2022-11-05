@@ -61,9 +61,9 @@ public class TeamResource {
   }
 
   @PutMapping(value = "/{id}")
-  public ResponseEntity<TeamDTO> update(@PathVariable Long id, @RequestBody TeamDTO teamDTO) {
-    teamDTO = teamService.updateTeam(id, teamDTO);
-    return ResponseEntity.ok().body(teamDTO);
+  public ResponseEntity<TeamDTO> update(@PathVariable Long id, @RequestBody TeamDTO userDTO) {
+    userDTO = teamService.updateTeam(id, userDTO);
+    return ResponseEntity.ok().body(userDTO);
   }
 
   @DeleteMapping(value = "/{id}")

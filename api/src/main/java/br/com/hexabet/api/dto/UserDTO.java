@@ -14,6 +14,7 @@ public class UserDTO {
   private Date createdAt;
   private Date updatedAt;
 
+  private Set<RoleDTO> roles = new HashSet<>();
   private Set<BetDTO> bets = new HashSet<>();
 
   public UserDTO() {
@@ -35,6 +36,7 @@ public class UserDTO {
     email = entityUser.getEmail();
     createdAt = entityUser.getCreatedAt();
     updatedAt = entityUser.getCreatedAt();
+    entityUser.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
   }
 
   public Long getId() {
@@ -85,8 +87,13 @@ public class UserDTO {
     this.updatedAt = updatedAt;
   }
 
+
   public Set<BetDTO> getBets() {
     return bets;
+  }
+
+  public Set<RoleDTO> getRoles() {
+    return roles;
   }
 
 }

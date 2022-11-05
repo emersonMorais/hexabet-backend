@@ -17,3 +17,6 @@ insert into tb_role(permission) values ('ROLE_ADMIN');
 
 insert into user_role(user_id, role_id) VALUES(1, 1); 
 insert into user_role(user_id, role_id) VALUES(2, 2);
+
+insert into user_bet(user_id, bet_id) values(1, 1); 
+
