@@ -6,6 +6,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -50,6 +51,15 @@ public class BetService {
       return new BetDTO(bet);
     } catch (EntityNotFoundException e) {
       throw new RuntimeException(e.getMessage());
+    }
+  }
+
+  public void deleteBet(Long id) {
+    try{
+      betRepository.deleteById(id);
+    } 
+    catch(EmptyResultDataAccessException err){
+      err.printStackTrace();
     }
   }
 

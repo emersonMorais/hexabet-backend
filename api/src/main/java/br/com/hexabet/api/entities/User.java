@@ -37,7 +37,7 @@ public class User {
   )
   private Set<Bet> bets = new HashSet<>();
   
-  private User() {}
+  public User() {}
 
   public User(Long id, String name, String email, String password, String role, Date createdAt,
       Date updatedAt) {
@@ -96,6 +96,10 @@ public class User {
 
   public void setUpdatedAt(Date updatedAt) {
     this.updatedAt = updatedAt;
+  }
+
+  public Set<Bet> getBets() {
+    return bets;
   }
 
   @Override

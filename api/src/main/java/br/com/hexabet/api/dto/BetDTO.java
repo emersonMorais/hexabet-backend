@@ -6,7 +6,7 @@ public class BetDTO {
   private Long id;
   private String guess;
 
-  private BetDTO() {
+  public BetDTO() {
   }
 
   public BetDTO(Long id, String guess) {
