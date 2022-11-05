@@ -1,9 +1,11 @@
 package br.com.hexabet.api.entities;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,41 +18,36 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 @Entity
 @Table(name = "tb_users")
-public class User {
+public class User implements UserDetails {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id; 
+  private Long id;
   private String firstName;
-  private String lastName; 
+  private String lastName;
   @Column(unique = true)
   private String email;
-  private String password; 
+  private String password;
   @Column(nullable = true)
   private Date createdAt;
   @Column(nullable = true)
   private Date updatedAt;
 
-
-  
   @ManyToMany(fetch = FetchType.EAGER)
-  @JoinTable(
-    name = "user_role",
-    joinColumns = @JoinColumn(name="user_id"),
-    inverseJoinColumns = @JoinColumn(name="role_id")
-  )
+  @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
   private Set<Role> roles = new HashSet<>();
 
   @ManyToMany
-  @JoinTable(
-    name = "user_bet",
-    joinColumns = @JoinColumn(name="user_id"),
-    inverseJoinColumns = @JoinColumn(name="bet_id")
-  )
+  @JoinTable(name = "user_bet", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "bet_id"))
   private Set<Bet> bets = new HashSet<>();
-  
-  public User() {}
+
+  public User() {
+  }
 
   public User(Long id, String firstName, String lastName, String email, String password, Date createdAt,
       Date updatedAt) {
@@ -122,11 +119,10 @@ public class User {
   public Set<Bet> getBets() {
     return bets;
   }
-  
+
   public Set<Role> getRoles() {
     return roles;
   }
-
 
   @Override
   public int hashCode() {
@@ -149,5 +145,34 @@ public class User {
         + password + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", bets=" + bets + "]";
   }
 
-  
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return roles.stream().map(role -> new SimpleGrantedAuthority(role.getPermission())).collect(Collectors.toList());
+  }
+
+  @Override
+  public String getUsername() {
+    return email;
+  }
+
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return true;
+  }
+
 }

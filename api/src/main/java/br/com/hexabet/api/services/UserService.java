@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +24,7 @@ import br.com.hexabet.api.repositories.RoleRepository;
 import br.com.hexabet.api.repositories.UserRepository;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
   @Autowired
   private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -94,5 +97,15 @@ public class UserService {
       user.getRoles().add(role);
     }
 
+  }
+
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    User user = userRepository.findByEmail(username);
+
+    if(user == null) {
+      throw new UsernameNotFoundException("Email não encontrado");
+    }
+    return user;
   }
 }
