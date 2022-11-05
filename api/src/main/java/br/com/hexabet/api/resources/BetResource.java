@@ -17,21 +17,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.hexabet.api.dto.MatchDTO;
-import br.com.hexabet.api.services.MatchService;
+import br.com.hexabet.api.dto.BetDTO;
+import br.com.hexabet.api.services.BetService;
 
 @RestController
-@RequestMapping(value = "/matches")
-public class MatchResource {
+@RequestMapping(value = "/bets")
+public class BetResource {
 
   @Autowired
-  private MatchService matchService;
+  private BetService betService;
 
   @GetMapping
-  public ResponseEntity<Page<MatchDTO>> findAll(
+  public ResponseEntity<Page<BetDTO>> findAll(
       @RequestParam(value = "page", defaultValue = "0") Integer page,
       @RequestParam(value = "linesPerPage", defaultValue = "10") Integer linesPerPage,
-      @RequestParam(value = "orderBy", defaultValue = "date") String orderBy,
+      @RequestParam(value = "orderBy", defaultValue = "id") String orderBy,
       @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
 
     PageRequest pageRequest = PageRequest.of(
@@ -39,32 +39,32 @@ public class MatchResource {
         Direction.valueOf(direction),
         orderBy);
 
-    Page<MatchDTO> listOfMatchsPaged = matchService.findAllMatchsPaged(pageRequest);
+    Page<BetDTO> listOfMatchsPaged = betService.findAllBetsPaged(pageRequest);
     return ResponseEntity.ok().body(listOfMatchsPaged);
   }
 
   @GetMapping(value = "/{id}")
-  public ResponseEntity<MatchDTO> findById(@PathVariable Long id) {
-    MatchDTO matchDTO = matchService.findMatchById(id);
-    return ResponseEntity.ok().body(matchDTO);
+  public ResponseEntity<BetDTO> findById(@PathVariable Long id) {
+    BetDTO betDTO = betService.findBetById(id);
+    return ResponseEntity.ok().body(betDTO);
   }
 
   @PostMapping
-  public ResponseEntity<MatchDTO> insert(@RequestBody MatchDTO matchDTO) {
-    matchDTO = matchService.insertNewMatch(matchDTO);
+  public ResponseEntity<BetDTO> insert(@RequestBody BetDTO betDTO) {
+    betDTO = betService.insertNewBet(betDTO);
 
     URI location = ServletUriComponentsBuilder
         .fromCurrentRequest()
         .path("/{id}")
-        .buildAndExpand(matchDTO.getId()).toUri();
+        .buildAndExpand(betDTO.getId()).toUri();
 
-    return ResponseEntity.created(location).body(matchDTO);
+    return ResponseEntity.created(location).body(betDTO);
   }
 
   @PutMapping(value = "/{id}")
-  public ResponseEntity<MatchDTO> update(@PathVariable Long id, @RequestBody MatchDTO matchDTO) {
-    matchDTO = matchService.updateMatch(id, matchDTO);
-    return ResponseEntity.ok().body(matchDTO);
+  public ResponseEntity<BetDTO> update(@PathVariable Long id, @RequestBody BetDTO betDTO) {
+    betDTO = betService.updateBet(id, betDTO);
+    return ResponseEntity.ok().body(betDTO);
   }
 
 }
