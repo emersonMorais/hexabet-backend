@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.hexabet.api.dto.UserDTO;
+import br.com.hexabet.api.dto.UserInsertPasswordDTO;
 import br.com.hexabet.api.services.UserService;
-
 
 @RestController
 @RequestMapping(value = "/users")
 public class UserResource {
- 
+
   @Autowired
   private UserService userService;
 
@@ -50,15 +50,15 @@ public class UserResource {
   }
 
   @PostMapping
-  public ResponseEntity<UserDTO> insert(@RequestBody UserDTO userDTO) {
-    userDTO = userService.insertNewUser(userDTO);
+  public ResponseEntity<UserDTO> insert(@RequestBody UserInsertPasswordDTO userDTO) {
+    UserDTO newUserDTO = userService.insertNewUser(userDTO);
 
     URI uri = ServletUriComponentsBuilder
         .fromCurrentRequest()
         .path("/{id}")
-        .buildAndExpand(userDTO.getId()).toUri();
+        .buildAndExpand(newUserDTO.getId()).toUri();
 
-    return ResponseEntity.created(uri).body(userDTO);
+    return ResponseEntity.created(uri).body(newUserDTO);
   }
 
   @PutMapping(value = "/{id}")

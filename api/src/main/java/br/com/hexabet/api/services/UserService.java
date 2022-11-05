@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.hexabet.api.dto.RoleDTO;
 import br.com.hexabet.api.dto.UserDTO;
+import br.com.hexabet.api.dto.UserInsertPasswordDTO;
 import br.com.hexabet.api.entities.Role;
 import br.com.hexabet.api.entities.User;
 import br.com.hexabet.api.repositories.RoleRepository;
@@ -20,6 +22,9 @@ import br.com.hexabet.api.repositories.UserRepository;
 
 @Service
 public class UserService {
+
+  @Autowired
+  private BCryptPasswordEncoder bCryptPasswordEncoder;
 
   @Autowired
   private UserRepository userRepository;
@@ -41,9 +46,13 @@ public class UserService {
   }
 
   @Transactional
-  public UserDTO insertNewUser(UserDTO userDTO) {
+  public UserDTO insertNewUser(UserInsertPasswordDTO userDTO) {
     User user = new User();
     passDtoToEntity(userDTO, user);
+
+    user.setPassword(bCryptPasswordEncoder
+        .encode(userDTO.getPassword()));
+
     user = userRepository.save(user);
     return new UserDTO(user);
   }
@@ -71,7 +80,6 @@ public class UserService {
     }
   }
 
-
   private void passDtoToEntity(UserDTO userDTO, User user) {
     user.setFirstName((userDTO.getFirstName()));
     user.setLastName((userDTO.getLastName()));
@@ -81,7 +89,7 @@ public class UserService {
 
     user.getRoles().clear();
 
-    for(RoleDTO roleDTO: userDTO.getRoles()) {
+    for (RoleDTO roleDTO : userDTO.getRoles()) {
       Role role = roleRepository.getReferenceById(roleDTO.getId());
       user.getRoles().add(role);
     }
