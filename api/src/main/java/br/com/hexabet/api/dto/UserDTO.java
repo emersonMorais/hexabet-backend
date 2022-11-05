@@ -4,13 +4,25 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 import br.com.hexabet.api.entities.User;
 
 public class UserDTO {
   private Long id;
+  
+  @Size(min = 3, max = 30, message = "Deve ter entre 5 e 30 caracteres")
+  @NotBlank(message = "Campo obrigatório")
   private String firstName;
+
+  @NotBlank(message = "Campo obrigatório")
   private String lastName;
+
+  @Email(message = "Digitar um e-mail válido")
   private String email;
+
   private Date createdAt;
   private Date updatedAt;
 
