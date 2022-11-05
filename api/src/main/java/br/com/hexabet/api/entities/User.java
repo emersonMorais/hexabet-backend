@@ -21,13 +21,26 @@ public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id; 
-  private String name; 
+  private String firstName;
+  private String lastName; 
   @Column(unique = true)
   private String email;
   private String password; 
-  private String role;
+  @Column(nullable = true)
   private Date createdAt;
+  @Column(nullable = true)
   private Date updatedAt;
+
+
+  
+  @ManyToMany
+  @JoinTable(
+    name = "user_role",
+    joinColumns = @JoinColumn(name="user_id"),
+    inverseJoinColumns = @JoinColumn(name="role_id")
+  )
+  private Set<Role> roles = new HashSet<>();
+
 
   @ManyToMany
   @JoinTable(
@@ -39,13 +52,13 @@ public class User {
   
   public User() {}
 
-  public User(Long id, String name, String email, String password, String role, Date createdAt,
+  public User(Long id, String firstName, String lastName, String email, String password, Date createdAt,
       Date updatedAt) {
     this.id = id;
-    this.name = name;
+    this.firstName = firstName;
+    this.lastName = lastName;
     this.email = email;
     this.password = password;
-    this.role = role;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
@@ -54,44 +67,52 @@ public class User {
     return id;
   }
 
-  public String getName() {
-    return name;
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public String getFirstName() {
+    return firstName;
+  }
+
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
   }
 
   public String getEmail() {
     return email;
   }
 
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
   public String getPassword() {
     return password;
   }
 
-  public String getRole() {
-    return role;
+  public void setPassword(String password) {
+    this.password = password;
   }
 
   public Date getCreatedAt() {
     return createdAt;
   }
 
-  public Date getUpdatedAt() {
-    return updatedAt;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public void setRole(String role) {
-    this.role = role;
-  }
-
   public void setCreatedAt(Date createdAt) {
     this.createdAt = createdAt;
+  }
+
+  public Date getUpdatedAt() {
+    return updatedAt;
   }
 
   public void setUpdatedAt(Date updatedAt) {
@@ -101,6 +122,7 @@ public class User {
   public Set<Bet> getBets() {
     return bets;
   }
+
 
   @Override
   public int hashCode() {
@@ -119,8 +141,9 @@ public class User {
 
   @Override
   public String toString() {
-    return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", role=" + role
-        + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
+    return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", password="
+        + password + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", bets=" + bets + "]";
   }
 
+  
 }

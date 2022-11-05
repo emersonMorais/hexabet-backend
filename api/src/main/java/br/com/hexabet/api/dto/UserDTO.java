@@ -6,32 +6,35 @@ import java.util.Set;
 
 import br.com.hexabet.api.entities.User;
 
-
 public class UserDTO {
-  private Long id; 
-  private String name; 
+  private Long id;
+  private String firstName;
+  private String lastName;
   private String email;
   private Date createdAt;
   private Date updatedAt;
-  
+
   private Set<BetDTO> bets = new HashSet<>();
 
-  public UserDTO() {}
+  public UserDTO() {
+  }
 
-  public UserDTO(Long id, String name, String email, Date createdAt, Date updatedAt) {
+  public UserDTO(Long id, String firstName, String lastName, String email, Date createdAt, Date updatedAt) {
     this.id = id;
-    this.name = name;
+    this.firstName = firstName;
+    this.lastName = lastName;
     this.email = email;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
-  
-  public UserDTO(User entityBet) {
-    id = entityBet.getId();
-    name = entityBet.getName();
-    email = entityBet.getEmail();
-    createdAt = entityBet.getCreatedAt();
-    updatedAt = entityBet.getCreatedAt();    
+
+  public UserDTO(User entityUser) {
+    id = entityUser.getId();
+    firstName = entityUser.getFirstName();
+    lastName = entityUser.getLastName();
+    email = entityUser.getEmail();
+    createdAt = entityUser.getCreatedAt();
+    updatedAt = entityUser.getCreatedAt();
   }
 
   public Long getId() {
@@ -42,12 +45,20 @@ public class UserDTO {
     this.id = id;
   }
 
-  public String getName() {
-    return name;
+  public String getFirstName() {
+    return firstName;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
   }
 
   public String getEmail() {
