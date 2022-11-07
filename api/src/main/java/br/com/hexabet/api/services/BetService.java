@@ -24,7 +24,7 @@ public class BetService {
   @Transactional
   public Page<BetDTO> findAllBetsPaged(PageRequest pageRequest) {
     Page<Bet> listOfBets = betRepository.findAll(pageRequest);
-    return listOfBets.map(bet -> (new BetDTO(bet, bet.getMatches())));
+    return listOfBets.map(bet -> (new BetDTO(bet)));
   }
 
   @Transactional
@@ -38,6 +38,7 @@ public class BetService {
   public BetDTO insertNewBet(BetDTO betDTO) {
     Bet bet = new Bet();
     bet.setGuess(betDTO.getGuess());
+    bet.setMatchId(betDTO.getMatchId());
     bet = betRepository.save(bet);
     return new BetDTO(bet);
   }

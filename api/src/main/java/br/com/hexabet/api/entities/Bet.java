@@ -1,15 +1,15 @@
 package br.com.hexabet.api.entities;
 
-import java.util.Date;
-import java.util.HashSet;
+import java.time.Instant;
 import java.util.Objects;
-import java.util.Set;
+
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,22 +19,27 @@ public class Bet {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String guess;
+  private Instant createdAt;
+  private Instant updatedAt;
 
-  private Date createdAt;
-  private Date updatedAt;
-
-  @ManyToMany(mappedBy = "bets")
-  private Set<Match> matches = new HashSet<>();
-
+  
+  @ManyToOne
+  @JoinColumn(name = "match_id")
+  private Match matchId;
+  
+  
   public Bet() {
   }
 
-  public Bet(Long id, String guess, Date createdAt, Date updatedAt) {
+
+  public Bet(Long id, String guess, Match matchId, Instant createdAt, Instant updatedAt) {
     this.id = id;
     this.guess = guess;
+    this.matchId = matchId;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
+
 
   public Long getId() {
     return id;
@@ -52,25 +57,32 @@ public class Bet {
     this.guess = guess;
   }
 
-  public Date getCreatedAt() {
+  public Instant getCreatedAt() {
     return createdAt;
   }
 
-  public void setCreatedAt(Date createdAt) {
+  public void setCreatedAt(Instant createdAt) {
     this.createdAt = createdAt;
   }
 
-  public Date getUpdatedAt() {
+  public Instant getUpdatedAt() {
     return updatedAt;
   }
 
-  public void setUpdatedAt(Date updatedAt) {
+  public void setUpdatedAt(Instant updatedAt) {
     this.updatedAt = updatedAt;
   }
 
-  public Set<Match> getMatches() {
-    return matches;
+  
+
+  public Match getMatchId() {
+    return matchId;
   }
+
+  public void setMatchId(Match matchId) {
+    this.matchId = matchId;
+  }
+
 
   @Override
   public int hashCode() {

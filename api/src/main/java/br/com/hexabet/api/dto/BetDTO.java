@@ -1,8 +1,5 @@
 package br.com.hexabet.api.dto;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import br.com.hexabet.api.entities.Bet;
 import br.com.hexabet.api.entities.Match;
 
@@ -10,24 +7,21 @@ public class BetDTO {
   private Long id;
   private String guess;
 
-  private Set<Match> matches = new HashSet<>();
+  private Match matchId;
 
   public BetDTO() {
   }
 
-  public BetDTO(Long id, String guess) {
+  public BetDTO(Long id, String guess, Match matchID) {
     this.id = id;
     this.guess = guess;
+    this.matchId = matchID;
   }
 
   public BetDTO(Bet entityBet) {
     this.id = entityBet.getId();
     this.guess = entityBet.getGuess();
-  }
-
-  public BetDTO(Bet entityBet, Set<Match> matches) {
-    this(entityBet);
-    matches.forEach(match -> this.matches.add(match));
+    this.matchId = entityBet.getMatchId();
   }
 
   public Long getId() {
@@ -46,8 +40,12 @@ public class BetDTO {
     this.guess = guess;
   }
 
-  public Set<Match> getMatches() {
-    return matches;
+  public Match getMatchId() {
+    return matchId;
+  }
+
+  public void setMatchId(Match matchId) {
+    this.matchId = matchId;
   }
 
 }

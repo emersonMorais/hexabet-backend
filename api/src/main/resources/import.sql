@@ -4,7 +4,7 @@ insert into tb_team(country_name, group_team) values('Italia', 'D');
 
 insert into tb_matches(date, result, team1_id, team2_id) values(TIMESTAMP WITH TIME ZONE '2022-10-14T20:50:08Z', 'vitoria time 1', 1, 2);
 
-insert into tb_bets(guess) values('vitoria time 1');
+insert into tb_bets(guess, created_at, updated_at, match_id) values('vitoria time 1', NOW(), NOW(), 1);
 
 
 insert into tb_users(first_name, last_name, email, created_at,updated_at,password) values('Emerson', 'Morais', 'emersn@gmail', Now(), Now(), '123');
