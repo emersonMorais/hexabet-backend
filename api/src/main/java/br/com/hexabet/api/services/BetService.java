@@ -24,7 +24,7 @@ public class BetService {
   @Transactional
   public Page<BetDTO> findAllBetsPaged(PageRequest pageRequest) {
     Page<Bet> listOfBets = betRepository.findAll(pageRequest);
-    return listOfBets.map(bet -> new BetDTO(bet));
+    return listOfBets.map(bet -> (new BetDTO(bet, bet.getMatches())));
   }
 
   @Transactional

@@ -1,12 +1,15 @@
 package br.com.hexabet.api.entities;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -20,6 +23,8 @@ public class Bet {
   private Date createdAt;
   private Date updatedAt;
 
+  @ManyToMany(mappedBy = "bets")
+  private Set<Match> matches = new HashSet<>();
 
   public Bet() {
   }
@@ -63,6 +68,10 @@ public class Bet {
     this.updatedAt = updatedAt;
   }
 
+  public Set<Match> getMatches() {
+    return matches;
+  }
+
   @Override
   public int hashCode() {
     return Objects.hash(id);
@@ -83,4 +92,6 @@ public class Bet {
     return "Bet [id=" + id + ", guess=" + guess + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
   }
 
+
+ 
 }

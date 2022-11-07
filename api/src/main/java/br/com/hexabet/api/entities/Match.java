@@ -1,7 +1,9 @@
 package br.com.hexabet.api.entities;
 
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -31,7 +35,10 @@ public class Match {
   @JoinColumn(name = "team2_id")
   private Team secondTeam;
 
- 
+  @ManyToMany
+  @JoinTable(name = "match_bet", joinColumns = @JoinColumn(name = "match_id"), inverseJoinColumns = @JoinColumn(name = "bet_id"))
+  private Set<Bet> bets = new HashSet<>();
+
   public Match() {
   }
 

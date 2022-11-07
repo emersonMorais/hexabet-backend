@@ -27,3 +27,5 @@ insert into tb_users(first_name, last_name, email, created_at,updated_at,passwor
 
 insert into user_role(user_id, role_id) values(3, 1);
 insert into user_role(user_id, role_id) values(4, 2);  
+
+insert into match_bet(match_id, bet_id) values(1, 1);
