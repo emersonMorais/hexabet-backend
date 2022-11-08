@@ -4,6 +4,8 @@ import java.time.Instant;
 import java.util.Objects;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,15 +13,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.com.hexabet.api.enums.BetStatusEnum;
+
 @Entity
 @Table(name = "tb_bets")
 public class Bet {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private String guess;
   private Instant createdAt;
   private Instant updatedAt;
+  @Enumerated(EnumType.STRING)
+  private BetStatusEnum guess;
 
   @ManyToOne
   @JoinColumn(name = "match_id")
@@ -32,12 +37,13 @@ public class Bet {
   public Bet() {
   }
 
-  public Bet(Long id, String guess, Match matchId, Instant createdAt, Instant updatedAt) {
+  public Bet(Long id, Instant createdAt, Instant updatedAt, BetStatusEnum guess, Match matchId, User userId) {
     this.id = id;
-    this.guess = guess;
-    this.matchId = matchId;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
+    this.guess = guess;
+    this.matchId = matchId;
+    this.userId = userId;
   }
 
   public Long getId() {
@@ -46,14 +52,6 @@ public class Bet {
 
   public void setId(Long id) {
     this.id = id;
-  }
-
-  public String getGuess() {
-    return guess;
-  }
-
-  public void setGuess(String guess) {
-    this.guess = guess;
   }
 
   public Instant getCreatedAt() {
@@ -93,7 +91,6 @@ public class Bet {
     this.userId = userId;
   }
 
-
   @Override
   public boolean equals(Object obj) {
     if (this == obj)
@@ -109,5 +106,12 @@ public class Bet {
     return "Bet [id=" + id + ", guess=" + guess + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
   }
 
+  public BetStatusEnum getGuess() {
+    return guess;
+  }
+
+  public void setGuess(BetStatusEnum guess) {
+    this.guess = guess;
+  }
 
 }

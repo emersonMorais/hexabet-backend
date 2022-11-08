@@ -1,19 +1,23 @@
 package br.com.hexabet.api.entities;
 
 import java.time.Instant;
-import java.util.HashSet;
+
 import java.util.Objects;
-import java.util.Set;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+
 import javax.persistence.Table;
+
+import br.com.hexabet.api.enums.BetStatusEnum;
 
 @Entity
 @Table(name = "tb_matches")
@@ -22,7 +26,10 @@ public class Match {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "match_id")
   private Long id;
-  private String result;
+
+  @Enumerated(EnumType.STRING)
+  private BetStatusEnum result;
+
   @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
   private Instant date;
 
@@ -34,16 +41,14 @@ public class Match {
   @JoinColumn(name = "team2_id")
   private Team secondTeam;
 
-  @OneToMany(mappedBy = "matchId")
-  private Set<Bet> bets = new HashSet<>();
 
   public Match() {
   }
 
-  public Match(Long id, Instant date, String result, Team firstTeam, Team secondTeam) {
+  public Match(Long id, BetStatusEnum result, Instant date, Team firstTeam, Team secondTeam) {
     this.id = id;
-    this.date = date;
     this.result = result;
+    this.date = date;
     this.firstTeam = firstTeam;
     this.secondTeam = secondTeam;
   }
@@ -81,11 +86,12 @@ public class Match {
     this.date = date;
   }
 
-  public String getResult() {
+
+  public BetStatusEnum getResult() {
     return result;
   }
 
-  public void setResult(String result) {
+  public void setResult(BetStatusEnum result) {
     this.result = result;
   }
 

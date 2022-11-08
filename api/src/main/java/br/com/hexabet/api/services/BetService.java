@@ -10,9 +10,9 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
 import br.com.hexabet.api.dto.BetDTO;
 import br.com.hexabet.api.entities.Bet;
+import br.com.hexabet.api.enums.BetStatusEnum;
 import br.com.hexabet.api.repositories.BetRepository;
 
 @Service
@@ -37,9 +37,9 @@ public class BetService {
   @Transactional
   public BetDTO insertNewBet(BetDTO betDTO) {
     Bet bet = new Bet();
-    bet.setGuess(betDTO.getGuess());
     bet.setMatchId(betDTO.getMatchId());
     bet.setUserId(betDTO.getUserId());
+    bet.setGuess(BetStatusEnum.ND);
     bet = betRepository.save(bet);
     return new BetDTO(bet);
   }
@@ -57,10 +57,9 @@ public class BetService {
   }
 
   public void deleteBet(Long id) {
-    try{
+    try {
       betRepository.deleteById(id);
-    } 
-    catch(EmptyResultDataAccessException err){
+    } catch (EmptyResultDataAccessException err) {
       err.printStackTrace();
     }
   }

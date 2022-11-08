@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.hexabet.api.dto.MatchDTO;
 import br.com.hexabet.api.entities.Match;
+import br.com.hexabet.api.enums.BetStatusEnum;
 import br.com.hexabet.api.repositories.MatchRepository;
 
 @Service
@@ -36,11 +37,10 @@ public class MatchService {
   @Transactional
   public MatchDTO insertNewMatch(MatchDTO matchDTO) {
     Match match = new Match();
-
     match.setDate(matchDTO.getDate());
-    match.setResult(matchDTO.getResult());
     match.setFirstTeam(matchDTO.getFirstTeam());
     match.setSecondTeam(matchDTO.getSecondTeam());
+    match.setResult(BetStatusEnum.ND);
     match = matchRepository.save(match);
 
     return new MatchDTO(match);
@@ -48,13 +48,13 @@ public class MatchService {
 
   @Transactional
   public MatchDTO updateMatch(Long id, MatchDTO matchDTO) {
-      try {
-        Match match = matchRepository.getReferenceById(id);
-        match.setResult(matchDTO.getResult());
-        match = matchRepository.save(match);
-        return new MatchDTO(match);
-      } catch (EntityNotFoundException e) {
-        throw new RuntimeException(e.getMessage());
+    try {
+      Match match = matchRepository.getReferenceById(id);
+      match.setResult(matchDTO.getResult());
+      match = matchRepository.save(match);
+      return new MatchDTO(match);
+    } catch (EntityNotFoundException e) {
+      throw new RuntimeException(e.getMessage());
     }
   }
 

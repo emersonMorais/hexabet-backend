@@ -4,11 +4,13 @@ import java.time.Instant;
 
 import br.com.hexabet.api.entities.Match;
 import br.com.hexabet.api.entities.Team;
+import br.com.hexabet.api.enums.BetStatusEnum;
 
 public class MatchDTO {
   private Long id;
   private Instant date;
-  private String result;
+
+  private BetStatusEnum result;
 
   private Team firstTeam;
   private Team secondTeam;
@@ -16,8 +18,7 @@ public class MatchDTO {
   public MatchDTO() {
   }
 
- 
-  public MatchDTO(Long id, Instant date, String result, Team firstTeam, Team secondTeam) {
+  public MatchDTO(Long id, Instant date, BetStatusEnum result, Team firstTeam, Team secondTeam) {
     this.id = id;
     this.date = date;
     this.result = result;
@@ -39,14 +40,6 @@ public class MatchDTO {
 
   public void setDate(Instant date) {
     this.date = date;
-  }
-
-  public String getResult() {
-    return result;
-  }
-
-  public void setResult(String result) {
-    this.result = result;
   }
 
   public Long getId() {
@@ -71,6 +64,14 @@ public class MatchDTO {
 
   public void setSecondTeam(Team secondTeam) {
     this.secondTeam = secondTeam;
+  }
+
+  public BetStatusEnum getResult() {
+    return result;
+  }
+
+  public void setResult(BetStatusEnum result) {
+    this.result = result;
   }
 
 }
