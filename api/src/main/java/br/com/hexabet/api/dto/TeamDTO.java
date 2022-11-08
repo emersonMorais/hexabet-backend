@@ -1,12 +1,13 @@
 package br.com.hexabet.api.dto;
 
+import br.com.hexabet.api.entities.Group;
 import br.com.hexabet.api.entities.Team;
 
 public class TeamDTO {
 
   private Long id;
   private String countryName;
-  private String groupTeam;
+  private Group groupId;
 
   public TeamDTO() {
   }
@@ -14,13 +15,13 @@ public class TeamDTO {
   public TeamDTO(Team entityTeam) {
     this.id = entityTeam.getId();
     this.countryName = entityTeam.getcountryName();
-    this.groupTeam = entityTeam.getGroupTeam();
+    this.groupId = entityTeam.getGroupId();
   }
 
-  public TeamDTO(Long id, String countryName, String groupTeam) {
+  public TeamDTO(Long id, String countryName, Group groupId) {
     this.id = id;
     this.countryName = countryName;
-    this.groupTeam = groupTeam;
+    this.groupId = groupId;
   }
 
   public Long getId() {
@@ -39,12 +40,12 @@ public class TeamDTO {
     this.countryName = countryName;
   }
 
-  public String getGroupTeam() {
-    return groupTeam;
+  public Group getGroupId() {
+    return groupId;
   }
 
-  public void setGroupTeam(String groupTeam) {
-    this.groupTeam = groupTeam;
+  public void setGroupId(Group groupId) {
+    this.groupId = groupId;
   }
 
 }

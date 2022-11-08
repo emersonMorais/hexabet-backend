@@ -1,13 +1,13 @@
 package br.com.hexabet.api.entities;
 
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import javax.persistence.Table;
 
 @Entity
@@ -17,18 +17,17 @@ public class Team {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String countryName;
-  private String groupTeam;
+  
+  @ManyToOne
+  @JoinColumn(name = "group_id")
+  private Group groupId;
 
-
-  @OneToMany(mappedBy = "id")
-  private Set<Match> matches = new HashSet<>();
 
   public Team() {}
 
   public Team(Long id, String countryName, String groupTeam) {
     this.id = id;
     this.countryName = countryName;
-    this.groupTeam = groupTeam;
   }
 
   public Long getId() {
@@ -47,12 +46,14 @@ public class Team {
     this.countryName = countryName;
   }
 
-  public String getGroupTeam() {
-    return groupTeam;
+
+  
+  public Group getGroupId() {
+    return groupId;
   }
 
-  public void setGroupTeam(String groupTeam) {
-    this.groupTeam = groupTeam;
+  public void setGroupId(Group groupId) {
+    this.groupId = groupId;
   }
 
   @Override
@@ -82,10 +83,7 @@ public class Team {
 
   @Override
   public String toString() {
-    return "Team [id=" + id + ", countryName=" + countryName + ", groupTeam=" + groupTeam + ", matches=" + matches
-        + "]";
+    return "Team [id=" + id + ", countryName=" + countryName + ", groupId=" + groupId + "]";
   }
-
-  
 
 }

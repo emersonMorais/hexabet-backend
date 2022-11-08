@@ -38,7 +38,7 @@ public class TeamService {
     Team team = new Team();
 
     team.setcountryName(teamDTO.getCountryName());
-    team.setGroupTeam(teamDTO.getGroupTeam());
+    team.setGroupId(teamDTO.getGroupId());
     team = teamRepository.save(team);
 
     return new TeamDTO(team);
