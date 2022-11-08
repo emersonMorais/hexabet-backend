@@ -25,8 +25,7 @@ public class Bet {
   
   @ManyToOne
   @JoinColumn(name = "match_id")
-  private Match matchId;
-  
+  private Match matchId;  
   
   public Bet() {
   }

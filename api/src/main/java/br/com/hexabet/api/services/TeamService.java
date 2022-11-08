@@ -36,9 +36,7 @@ public class TeamService {
   @Transactional
   public TeamDTO insertNewTeam(TeamDTO teamDTO) {
     Team team = new Team();
-
     team.setcountryName(teamDTO.getCountryName());
-    team.setGroupId(teamDTO.getGroupId());
     team = teamRepository.save(team);
 
     return new TeamDTO(team);

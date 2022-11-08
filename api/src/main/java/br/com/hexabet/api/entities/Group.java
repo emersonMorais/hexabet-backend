@@ -15,8 +15,10 @@ public class Group {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String name;
- 
-  public Group(){}
+
+
+  public Group() {
+  }
 
   public Group(Long id, String name) {
     this.id = id;
@@ -58,5 +60,5 @@ public class Group {
   public String toString() {
     return "Group [id=" + id + ", name=" + name + "]";
   }
-  
+
 }
