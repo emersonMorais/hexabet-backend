@@ -42,10 +42,6 @@ public class User implements UserDetails {
   @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
   private Set<Role> roles = new HashSet<>();
 
-  @ManyToMany
-  @JoinTable(name = "user_bet", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "bet_id"))
-  private Set<Bet> bets = new HashSet<>();
-
   public User() {
   }
 
@@ -116,9 +112,6 @@ public class User implements UserDetails {
     this.updatedAt = updatedAt;
   }
 
-  public Set<Bet> getBets() {
-    return bets;
-  }
 
   public Set<Role> getRoles() {
     return roles;
@@ -142,7 +135,7 @@ public class User implements UserDetails {
   @Override
   public String toString() {
     return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", password="
-        + password + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", bets=" + bets + "]";
+        + password + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt;
   }
 
   @Override

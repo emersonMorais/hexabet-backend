@@ -27,7 +27,7 @@ public class UserDTO {
   private Date updatedAt;
 
   private Set<RoleDTO> roles = new HashSet<>();
-  private Set<BetDTO> bets = new HashSet<>();
+  
 
   public UserDTO() {
   }
@@ -97,11 +97,6 @@ public class UserDTO {
 
   public void setUpdatedAt(Date updatedAt) {
     this.updatedAt = updatedAt;
-  }
-
-
-  public Set<BetDTO> getBets() {
-    return bets;
   }
 
   public Set<RoleDTO> getRoles() {

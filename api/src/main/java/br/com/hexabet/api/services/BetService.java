@@ -39,6 +39,7 @@ public class BetService {
     Bet bet = new Bet();
     bet.setGuess(betDTO.getGuess());
     bet.setMatchId(betDTO.getMatchId());
+    bet.setUserId(betDTO.getUserId());
     bet = betRepository.save(bet);
     return new BetDTO(bet);
   }

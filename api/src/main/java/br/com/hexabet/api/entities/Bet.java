@@ -3,7 +3,6 @@ package br.com.hexabet.api.entities;
 import java.time.Instant;
 import java.util.Objects;
 
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,14 +21,16 @@ public class Bet {
   private Instant createdAt;
   private Instant updatedAt;
 
-  
   @ManyToOne
   @JoinColumn(name = "match_id")
-  private Match matchId;  
-  
+  private Match matchId;
+
+  @ManyToOne
+  @JoinColumn(name = "user_id")
+  private User userId;
+
   public Bet() {
   }
-
 
   public Bet(Long id, String guess, Match matchId, Instant createdAt, Instant updatedAt) {
     this.id = id;
@@ -38,7 +39,6 @@ public class Bet {
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
-
 
   public Long getId() {
     return id;
@@ -72,8 +72,6 @@ public class Bet {
     this.updatedAt = updatedAt;
   }
 
-  
-
   public Match getMatchId() {
     return matchId;
   }
@@ -82,11 +80,19 @@ public class Bet {
     this.matchId = matchId;
   }
 
-
   @Override
   public int hashCode() {
     return Objects.hash(id);
   }
+
+  public User getUserId() {
+    return userId;
+  }
+
+  public void setUserId(User userId) {
+    this.userId = userId;
+  }
+
 
   @Override
   public boolean equals(Object obj) {
@@ -102,7 +108,6 @@ public class Bet {
   public String toString() {
     return "Bet [id=" + id + ", guess=" + guess + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
   }
-
 
 
 }
