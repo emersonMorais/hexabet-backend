@@ -1,5 +1,7 @@
 package br.com.hexabet.api.services;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
@@ -45,6 +47,7 @@ public class UserService implements UserDetailsService {
   public UserDTO findUserById(Long id) {
     Optional<User> userOptional = userRepository.findById(id);
     User user = userOptional.get();
+
     return new UserDTO(user);
   }
 
@@ -66,6 +69,7 @@ public class UserService implements UserDetailsService {
       User user = userRepository.getReferenceById(id);
       user.setFirstName(userDTO.getFirstName());
       user.setLastName(userDTO.getLastName());
+      user.setUpdatedAt(Instant.now());
       user = userRepository.save(user);
       return new UserDTO(user);
     } catch (EntityNotFoundException e) {
@@ -73,7 +77,6 @@ public class UserService implements UserDetailsService {
     }
 
   }
-
   public void deleteUser(Long id) {
     try {
       userRepository.deleteById(id);
@@ -84,12 +87,12 @@ public class UserService implements UserDetailsService {
   }
 
   private void passDtoToEntity(UserDTO userDTO, User user) {
+
     user.setFirstName((userDTO.getFirstName()));
     user.setLastName((userDTO.getLastName()));
     user.setEmail((userDTO.getEmail()));
-    user.setCreatedAt((userDTO.getCreatedAt()));
-    user.setUpdatedAt(userDTO.getUpdatedAt());
-
+    user.setCreatedAt((Instant.now()));
+    user.setUpdatedAt(Instant.now());
     user.getRoles().clear();
 
     for (RoleDTO roleDTO : userDTO.getRoles()) {

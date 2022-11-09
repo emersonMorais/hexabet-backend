@@ -30,7 +30,7 @@ public class Match {
   @Enumerated(EnumType.STRING)
   private BetStatusEnum result;
 
-  @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+  @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
   private Instant date;
 
   @ManyToOne

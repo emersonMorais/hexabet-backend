@@ -1,5 +1,6 @@
 package br.com.hexabet.api.services;
 
+import java.time.Instant;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
@@ -37,6 +38,8 @@ public class BetService {
   @Transactional
   public BetDTO insertNewBet(BetDTO betDTO) {
     Bet bet = new Bet();
+    bet.setCreatedAt(Instant.now());
+    bet.setUpdatedAt(Instant.now());
     bet.setMatchId(betDTO.getMatchId());
     bet.setUserId(betDTO.getUserId());
     bet.setGuess(BetStatusEnum.ND);

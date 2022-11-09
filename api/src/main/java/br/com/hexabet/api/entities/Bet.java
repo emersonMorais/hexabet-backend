@@ -3,17 +3,12 @@ package br.com.hexabet.api.entities;
 import java.time.Instant;
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import br.com.hexabet.api.enums.BetStatusEnum;
+
+
+
 
 @Entity
 @Table(name = "tb_bets")
@@ -113,5 +108,4 @@ public class Bet {
   public void setGuess(BetStatusEnum guess) {
     this.guess = guess;
   }
-
 }

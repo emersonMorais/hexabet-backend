@@ -1,7 +1,7 @@
 package br.com.hexabet.api.entities;
 
+import java.time.Instant;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -18,6 +18,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,20 +35,21 @@ public class User implements UserDetails {
   @Column(unique = true)
   private String email;
   private String password;
-  @Column(nullable = true)
-  private Date createdAt;
-  @Column(nullable = true)
-  private Date updatedAt;
+
+
+  private Instant createdAt;
+
+  private Instant updatedAt;
 
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-  private Set<Role> roles = new HashSet<>();
+  private final Set<Role> roles = new HashSet<>();
 
   public User() {
   }
 
-  public User(Long id, String firstName, String lastName, String email, String password, Date createdAt,
-      Date updatedAt) {
+  public User(Long id, String firstName, String lastName, String email, String password, Instant createdAt,
+      Instant updatedAt) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
@@ -96,19 +99,19 @@ public class User implements UserDetails {
     this.password = password;
   }
 
-  public Date getCreatedAt() {
+  public Instant getCreatedAt() {
     return createdAt;
   }
 
-  public void setCreatedAt(Date createdAt) {
+  public void setCreatedAt(Instant createdAt) {
     this.createdAt = createdAt;
   }
 
-  public Date getUpdatedAt() {
+  public Instant getUpdatedAt() {
     return updatedAt;
   }
 
-  public void setUpdatedAt(Date updatedAt) {
+  public void setUpdatedAt(Instant updatedAt) {
     this.updatedAt = updatedAt;
   }
 

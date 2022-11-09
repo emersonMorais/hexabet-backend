@@ -5,17 +5,25 @@ import br.com.hexabet.api.entities.Match;
 import br.com.hexabet.api.entities.User;
 import br.com.hexabet.api.enums.BetStatusEnum;
 
+import java.time.Instant;
+
 public class BetDTO {
   private Long id;
   private BetStatusEnum guess;
   private Match matchId;
   private User userId;
 
+  private Instant createdAt;
+
+  private Instant updatedAt;
+
   public BetDTO() {
   }
 
-  public BetDTO(Long id, BetStatusEnum guess, Match matchId, User userId) {
+  public BetDTO(Long id, BetStatusEnum guess, Match matchId, User userId, Instant createdAt, Instant updatedAt) {
     this.id = id;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
     this.guess = guess;
     this.matchId = matchId;
     this.userId = userId;
@@ -23,6 +31,8 @@ public class BetDTO {
 
   public BetDTO(Bet entityBet) {
     this.id = entityBet.getId();
+    this.createdAt = entityBet.getCreatedAt();
+    this.updatedAt = entityBet.getCreatedAt();
     this.matchId = entityBet.getMatchId();
     this.userId = entityBet.getUserId();
     this.guess = entityBet.getGuess();
@@ -56,8 +66,19 @@ public class BetDTO {
     return guess;
   }
 
-  public void setGuess(BetStatusEnum guess) {
-    this.guess = guess;
+  public Instant getCreatedAt() {
+    return createdAt;
   }
 
+  public void setCreatedAt(Instant createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public Instant getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(Instant updatedAt) {
+    this.updatedAt = updatedAt;
+  }
 }

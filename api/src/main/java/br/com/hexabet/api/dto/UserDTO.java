@@ -1,6 +1,6 @@
 package br.com.hexabet.api.dto;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,8 +23,8 @@ public class UserDTO {
   @Email(message = "Digitar um e-mail válido")
   private String email;
 
-  private Date createdAt;
-  private Date updatedAt;
+  private Instant createdAt;
+  private Instant updatedAt;
 
   private Set<RoleDTO> roles = new HashSet<>();
   
@@ -32,13 +32,13 @@ public class UserDTO {
   public UserDTO() {
   }
 
-  public UserDTO(Long id, String firstName, String lastName, String email, Date createdAt, Date updatedAt) {
+  public UserDTO(Long id, String firstName, String lastName, String email, Instant createdAt, Instant updatedAt) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
-    this.createdAt = createdAt;
-    this.updatedAt = updatedAt;
+    this.createdAt = createdAt = Instant.now();
+    this.updatedAt = updatedAt = Instant.now();
   }
 
   public UserDTO(User entityUser) {
@@ -83,19 +83,19 @@ public class UserDTO {
     this.email = email;
   }
 
-  public Date getCreatedAt() {
+  public Instant getCreatedAt() {
     return createdAt;
   }
 
-  public void setCreatedAt(Date createdAt) {
+  public void setCreatedAt(Instant createdAt) {
     this.createdAt = createdAt;
   }
 
-  public Date getUpdatedAt() {
+  public Instant getUpdatedAt() {
     return updatedAt;
   }
 
-  public void setUpdatedAt(Date updatedAt) {
+  public void setUpdatedAt(Instant updatedAt) {
     this.updatedAt = updatedAt;
   }
 
