@@ -1,13 +1,13 @@
 package br.com.hexabet.api.services;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import br.com.hexabet.api.dto.MatchDTO;
@@ -22,9 +22,9 @@ public class MatchService {
   private MatchRepository matchRepository;
 
   @Transactional
-  public Page<MatchDTO> findAllMatchsPaged(PageRequest pageRequest) {
-    Page<Match> listOfTeams = matchRepository.findAll(pageRequest);
-    return listOfTeams.map(match -> new MatchDTO(match));
+  public List<MatchDTO> findAllMatches() {
+    List<Match> listOfTeams = matchRepository.findAll();
+    return listOfTeams.stream().map(match -> new MatchDTO(match)).collect(Collectors.toList());
   }
 
   @Transactional

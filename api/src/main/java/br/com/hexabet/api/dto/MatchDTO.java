@@ -15,15 +15,18 @@ public class MatchDTO {
   private Team firstTeam;
   private Team secondTeam;
 
+  private Boolean isActive;
+
   public MatchDTO() {
   }
 
-  public MatchDTO(Long id, Instant date, BetStatusEnum result, Team firstTeam, Team secondTeam) {
+  public MatchDTO(Long id, Instant date, BetStatusEnum result, Team firstTeam, Team secondTeam, Boolean isActive) {
     this.id = id;
     this.date = date;
     this.result = result;
     this.firstTeam = firstTeam;
     this.secondTeam = secondTeam;
+    this.isActive = isActive;
   }
 
   public MatchDTO(Match entityMatch) {
@@ -32,6 +35,7 @@ public class MatchDTO {
     this.result = entityMatch.getResult();
     this.firstTeam = entityMatch.getFirstTeam();
     this.secondTeam = entityMatch.getSecondTeam();
+    this.isActive = entityMatch.getisActive();
   }
 
   public Instant getDate() {
@@ -74,4 +78,11 @@ public class MatchDTO {
     this.result = result;
   }
 
+  public Boolean getActive() {
+    return isActive;
+  }
+
+  public void setActive(Boolean active) {
+    isActive = active;
+  }
 }

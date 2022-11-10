@@ -7,9 +7,6 @@ import javax.persistence.*;
 
 import br.com.hexabet.api.enums.BetStatusEnum;
 
-
-
-
 @Entity
 @Table(name = "tb_bets")
 public class Bet {

@@ -9,6 +9,8 @@ public class TeamDTO {
   private String countryName;
   private Group groupId;
 
+  private String flagUrl;
+
   public TeamDTO() {
   }
 
@@ -16,12 +18,14 @@ public class TeamDTO {
     this.id = entityTeam.getId();
     this.countryName = entityTeam.getcountryName();
     this.groupId = entityTeam.getGroupId();
+    this.flagUrl = entityTeam.getImgFlagUrl();
   }
 
-  public TeamDTO(Long id, String countryName, Group groupId) {
+  public TeamDTO(Long id, String countryName, Group groupId, String flagUrl) {
     this.id = id;
     this.countryName = countryName;
     this.groupId = groupId;
+    this.flagUrl = flagUrl;
   }
 
   public Long getId() {
@@ -48,4 +52,11 @@ public class TeamDTO {
     this.groupId = groupId;
   }
 
+  public String getFlagUrl() {
+    return flagUrl;
+  }
+
+  public void setFlagUrl(String flagUrl) {
+    this.flagUrl = flagUrl;
+  }
 }

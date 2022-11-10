@@ -18,6 +18,8 @@ public class Team {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String countryName;
+
+  private String imgFlagUrl;
   
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "group_id")
@@ -26,9 +28,10 @@ public class Team {
 
   public Team() {}
 
-  public Team(Long id, String countryName, String groupTeam) {
+  public Team(Long id, String countryName, String groupTeam, String imgFlagUrl) {
     this.id = id;
     this.countryName = countryName;
+    this.imgFlagUrl = imgFlagUrl;
   }
 
   public Long getId() {
@@ -47,14 +50,20 @@ public class Team {
     this.countryName = countryName;
   }
 
-
-  
   public Group getGroupId() {
     return groupId;
   }
 
   public void setGroupId(Group groupId) {
     this.groupId = groupId;
+  }
+
+  public String getImgFlagUrl() {
+    return imgFlagUrl;
+  }
+
+  public void setImgFlagUrl(String imgFlagUrl) {
+    this.imgFlagUrl = imgFlagUrl;
   }
 
   @Override

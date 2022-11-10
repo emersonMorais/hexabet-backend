@@ -1,6 +1,6 @@
 package br.com.hexabet.api.services;
 
-import java.text.SimpleDateFormat;
+
 import java.time.Instant;
 import java.util.Optional;
 
@@ -80,7 +80,6 @@ public class UserService implements UserDetailsService {
   public void deleteUser(Long id) {
     try {
       userRepository.deleteById(id);
-      ;
     } catch (EmptyResultDataAccessException err) {
       err.printStackTrace();
     }

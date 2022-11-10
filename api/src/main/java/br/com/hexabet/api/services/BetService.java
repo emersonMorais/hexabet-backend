@@ -1,19 +1,18 @@
 package br.com.hexabet.api.services;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import br.com.hexabet.api.dto.BetDTO;
 import br.com.hexabet.api.entities.Bet;
-import br.com.hexabet.api.enums.BetStatusEnum;
 import br.com.hexabet.api.repositories.BetRepository;
 
 @Service
@@ -23,9 +22,9 @@ public class BetService {
   private BetRepository betRepository;
 
   @Transactional
-  public Page<BetDTO> findAllBetsPaged(PageRequest pageRequest) {
-    Page<Bet> listOfBets = betRepository.findAll(pageRequest);
-    return listOfBets.map(bet -> (new BetDTO(bet)));
+  public List<BetDTO> findAllBets() {
+    List<Bet> listOfBets = betRepository.findAll();
+    return listOfBets.stream().map(bet -> (new BetDTO(bet))).collect(Collectors.toList());
   }
 
   @Transactional
@@ -42,7 +41,7 @@ public class BetService {
     bet.setUpdatedAt(Instant.now());
     bet.setMatchId(betDTO.getMatchId());
     bet.setUserId(betDTO.getUserId());
-    bet.setGuess(BetStatusEnum.ND);
+    bet.setGuess(betDTO.getGuess());
     bet = betRepository.save(bet);
     return new BetDTO(bet);
   }
