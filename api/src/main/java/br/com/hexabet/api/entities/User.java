@@ -32,7 +32,7 @@ public class User implements UserDetails {
   @Column(unique = true)
   private String email;
   private String password;
-
+  private Integer score; 
   private Instant createdAt;
 
   private Instant updatedAt;
@@ -44,7 +44,7 @@ public class User implements UserDetails {
   public User() {
   }
 
-  public User(Long id, String firstName, String lastName, String email, String password, Instant createdAt,
+  public User(Long id, String firstName, String lastName, String email, String password, Instant createdAt, Integer score,
       Instant updatedAt) {
     this.id = id;
     this.firstName = firstName;
@@ -53,6 +53,7 @@ public class User implements UserDetails {
     this.password = password;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
+    this.score = score;
   }
 
   public Long getId() {
@@ -111,9 +112,18 @@ public class User implements UserDetails {
     this.updatedAt = updatedAt;
   }
 
+  
 
   public Set<Role> getRoles() {
     return roles;
+  }
+
+  public Integer getScore() {
+    return score;
+  }
+
+  public void setScore(Integer score) {
+    this.score = score;
   }
 
   @Override
@@ -166,5 +176,7 @@ public class User implements UserDetails {
   public boolean isEnabled() {
     return true;
   }
+
+  
 
 }

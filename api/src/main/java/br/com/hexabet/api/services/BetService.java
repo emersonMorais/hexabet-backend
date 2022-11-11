@@ -1,6 +1,5 @@
 package br.com.hexabet.api.services;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -13,13 +12,23 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import br.com.hexabet.api.dto.BetDTO;
 import br.com.hexabet.api.entities.Bet;
+import br.com.hexabet.api.entities.Match;
+import br.com.hexabet.api.entities.User;
 import br.com.hexabet.api.repositories.BetRepository;
+import br.com.hexabet.api.repositories.MatchRepository;
+import br.com.hexabet.api.repositories.UserRepository;
 
 @Service
 public class BetService {
 
   @Autowired
   private BetRepository betRepository;
+
+  @Autowired
+  private MatchRepository matchRepository;
+ 
+  @Autowired
+  private UserRepository userRepository;
 
   @Transactional
   public List<BetDTO> findAllBets() {
@@ -35,15 +44,11 @@ public class BetService {
   }
 
   @Transactional
-  public BetDTO insertNewBet(BetDTO betDTO) {
-    Bet bet = new Bet();
-    bet.setCreatedAt(Instant.now());
-    bet.setUpdatedAt(Instant.now());
-    bet.setMatchId(betDTO.getMatchId());
-    bet.setUserId(betDTO.getUserId());
-    bet.setGuess(betDTO.getGuess());
-    bet = betRepository.save(bet);
-    return new BetDTO(bet);
+  public Bet insertNewBet(BetDTO betDTO) {
+    Match matchId = matchRepository.findById(betDTO.getMatchId()).get();
+    User userId = userRepository.findById(betDTO.getUserId()).get();
+    Bet bet = new Bet(betDTO, matchId, userId);
+    return bet;
   }
 
   @Transactional

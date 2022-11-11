@@ -26,17 +26,20 @@ public class UserDTO {
   private Instant createdAt;
   private Instant updatedAt;
 
+  private Integer score; 
+
   private Set<RoleDTO> roles = new HashSet<>();
   
 
   public UserDTO() {
   }
 
-  public UserDTO(Long id, String firstName, String lastName, String email, Instant createdAt, Instant updatedAt) {
+  public UserDTO(Long id, String firstName, String lastName, String email, Instant createdAt, Instant updatedAt, Integer score) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
+    this.score = score;
     this.createdAt = createdAt = Instant.now();
     this.updatedAt = updatedAt = Instant.now();
   }
@@ -102,5 +105,15 @@ public class UserDTO {
   public Set<RoleDTO> getRoles() {
     return roles;
   }
+
+  public Integer getScore() {
+    return score;
+  }
+
+  public void setScore(Integer score) {
+    this.score = score;
+  }
+
+  
 
 }

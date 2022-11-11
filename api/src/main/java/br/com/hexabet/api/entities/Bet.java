@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import javax.persistence.*;
 
+import br.com.hexabet.api.dto.BetDTO;
 import br.com.hexabet.api.enums.BetStatusEnum;
 
 @Entity
@@ -34,6 +35,12 @@ public class Bet {
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.guess = guess;
+    this.matchId = matchId;
+    this.userId = userId;
+  }
+
+  public Bet(BetDTO betDTO, Match matchId, User userId) {
+    this.guess = betDTO.getGuess();
     this.matchId = matchId;
     this.userId = userId;
   }

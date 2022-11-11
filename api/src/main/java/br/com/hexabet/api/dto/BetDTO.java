@@ -1,8 +1,6 @@
 package br.com.hexabet.api.dto;
 
 import br.com.hexabet.api.entities.Bet;
-import br.com.hexabet.api.entities.Match;
-import br.com.hexabet.api.entities.User;
 import br.com.hexabet.api.enums.BetStatusEnum;
 
 import java.time.Instant;
@@ -10,8 +8,8 @@ import java.time.Instant;
 public class BetDTO {
   private Long id;
   private BetStatusEnum guess;
-  private Match matchId;
-  private User userId;
+  private Long matchId;
+  private Long userId;
 
   private Instant createdAt;
 
@@ -20,7 +18,7 @@ public class BetDTO {
   public BetDTO() {
   }
 
-  public BetDTO(Long id, BetStatusEnum guess, Match matchId, User userId, Instant createdAt, Instant updatedAt) {
+  public BetDTO(Long id, BetStatusEnum guess, Long matchId, Long userId, Instant createdAt, Instant updatedAt) {
     this.id = id;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
@@ -33,8 +31,6 @@ public class BetDTO {
     this.id = entityBet.getId();
     this.createdAt = entityBet.getCreatedAt();
     this.updatedAt = entityBet.getCreatedAt();
-    this.matchId = entityBet.getMatchId();
-    this.userId = entityBet.getUserId();
     this.guess = entityBet.getGuess();
   }
 
@@ -46,19 +42,19 @@ public class BetDTO {
     this.id = id;
   }
 
-  public Match getMatchId() {
+  public Long getMatchId() {
     return matchId;
   }
 
-  public void setMatchId(Match matchId) {
+  public void setMatchId(Long matchId) {
     this.matchId = matchId;
   }
 
-  public User getUserId() {
+  public Long getUserId() {
     return userId;
   }
 
-  public void setUserId(User userId) {
+  public void setUserId(Long userId) {
     this.userId = userId;
   }
 

@@ -1,6 +1,5 @@
 package br.com.hexabet.api.resources;
 
-import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.hexabet.api.dto.BetDTO;
+import br.com.hexabet.api.entities.Bet;
+import br.com.hexabet.api.repositories.BetRepository;
 import br.com.hexabet.api.services.BetService;
 
 @RestController
@@ -25,6 +25,9 @@ public class BetResource {
 
   @Autowired
   private BetService betService;
+
+  @Autowired
+  private BetRepository betRepository;
 
   @GetMapping
   public ResponseEntity<List<BetDTO>> findAll(){
@@ -40,15 +43,10 @@ public class BetResource {
   }
 
   @PostMapping
-  public ResponseEntity<BetDTO> insert(@RequestBody BetDTO betDTO) {
-    betDTO = betService.insertNewBet(betDTO);
+  public Bet insert(@RequestBody BetDTO betDTO) {
+    Bet bet = betService.insertNewBet(betDTO);
 
-    URI location = ServletUriComponentsBuilder
-        .fromCurrentRequest()
-        .path("/{id}")
-        .buildAndExpand(betDTO.getId()).toUri();
-
-    return ResponseEntity.created(location).body(betDTO);
+    return betRepository.save(bet);
   }
 
   @PutMapping(value = "/{id}")
