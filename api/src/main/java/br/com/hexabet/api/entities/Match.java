@@ -27,8 +27,6 @@ public class Match {
   @Column(name = "match_id")
   private Long id;
 
-  private Boolean isActive;
-
   @Enumerated(EnumType.STRING)
   private BetStatusEnum result;
 
@@ -53,7 +51,6 @@ public class Match {
     this.date = date;
     this.firstTeam = firstTeam;
     this.secondTeam = secondTeam;
-    this.isActive = isActive;
   }
 
   public Long getId() {
@@ -96,14 +93,6 @@ public class Match {
 
   public void setResult(BetStatusEnum result) {
     this.result = result;
-  }
-
-  public Boolean getisActive() {
-    return isActive;
-  }
-
-  public void setActive(Boolean active) {
-    isActive = active;
   }
 
   @Override

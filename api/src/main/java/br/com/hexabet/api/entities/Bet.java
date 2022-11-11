@@ -14,7 +14,7 @@ public class Bet {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private Instant createdAt;
+  private Instant createdAt =  Instant.now();
   private Instant updatedAt;
   @Enumerated(EnumType.STRING)
   private BetStatusEnum guess;
@@ -90,6 +90,15 @@ public class Bet {
     this.userId = userId;
   }
 
+  
+  public BetStatusEnum getGuess() {
+    return guess;
+  }
+
+  public void setGuess(BetStatusEnum guess) {
+    this.guess = guess;
+  }
+
   @Override
   public boolean equals(Object obj) {
     if (this == obj)
@@ -105,11 +114,4 @@ public class Bet {
     return "Bet [id=" + id + ", guess=" + guess + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
   }
 
-  public BetStatusEnum getGuess() {
-    return guess;
-  }
-
-  public void setGuess(BetStatusEnum guess) {
-    this.guess = guess;
-  }
 }

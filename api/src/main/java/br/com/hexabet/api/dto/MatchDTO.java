@@ -35,7 +35,6 @@ public class MatchDTO {
     this.result = entityMatch.getResult();
     this.firstTeam = entityMatch.getFirstTeam();
     this.secondTeam = entityMatch.getSecondTeam();
-    this.isActive = entityMatch.getisActive();
   }
 
   public Instant getDate() {
